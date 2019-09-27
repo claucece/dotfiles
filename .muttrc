@@ -1,0 +1,216 @@
+set certificate_file=~/.mutt/certificates
+set ssl_verify_host = no
+
+set imap_pass = $my_pw
+
+set folder="imaps://sofia@mail.autonomia.digital:993/"
+set spoolfile="imaps://sofia@mail.autonomia.digital:993/"
+set record="+Sent"
+set postponed="+Drafts"
+
+set copy=yes
+set imap_check_subscribed
+set mail_check=60
+set timeout=10
+set fast_reply=yes
+
+set delete
+unset confirmappend
+
+set editor = 'vim +/^$ +nohlsearch + -c "set textwidth=72" -c "set wrap" -c "set spell spelllang=en"' # Move past headers.
+my_hdr User-Agent: Whatever/1.0
+
+bind attach,index,pager \CB noop # Normally bound to show URLs with `urlview`.
+macro index,pager \\u "<enter-command>set pipe_decode = yes<enter><pipe-message>urlview<enter><enter-command>set pipe_decode = no<enter>" "view URLs"
+macro index  S  ":set confirmappend=no delete=yes\n<tag-prefix-cond><save-message>=clang\n<sync-mailbox>:set confirmappend=yes delete=ask-yes\n"
+set sidebar_visible
+set sidebar_short_path = yes
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+
+set mail_check_stats
+set check_new
+
+# Status Bar -----------------------------------------
+set status_chars  = " *%A"
+set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+set include=yes
+set index_format = "%4C %Z %[%b %d %R] %-15.15L (%?l?%4l&%4c?) %s"
+set menu_scroll=yes
+set move=no
+set pager_format = '=%b %C/%m: %-20.20F   %s%*—(%P)'
+set ts_enabled = yes
+set ts_status_format = 'mutt %m messages%?n?, %n new?'
+set beep_new
+set sort=threads
+set sort_aux=reverse-last-date-received
+
+set pgp_default_key = F7D1A55C
+set pgp_sign_as = F7D1A55C
+set crypt_use_gpgme= yes
+set crypt_opportunistic_encrypt = yes
+set crypt_autosign= yes
+set crypt_verify_sig= yes
+set crypt_replysign= yes
+set crypt_replyencrypt= yes
+set crypt_replysignencrypted = yes
+
+# Read first as plaintext
+auto_view text/html
+alternative_order text/plain text/html
+
+unset imap_passive
+
+# Index Key Bindings ---------------------------------
+bind index gg       first-entry
+bind index G        last-entry
+
+bind index R        group-reply
+bind index <tab>    sync-mailbox
+bind index <space>  collapse-thread
+bind pager <up> previous-line #scroll inside the message rather than the index
+bind pager <down> next-line
+bind attach <enter> view-mailcap # Normally <view-attach>.
+bind attach <return> view-mailcap
+bind compose p pgp-menu
+macro compose Y pfy "send mail without GPG"
+
+# Compose View Options -------------------------------
+set realname = "Sofia Celi" # who am i?
+set signature = ~/.mutt/signature
+set alias_file= ~/.mutt/aliases
+set sort_alias= alias
+set reverse_alias=yes
+source $alias_file
+set envelope_from                    # which from?
+set sig_dashes                       # dashes before sig
+set edit_headers                     # show headers when composing
+set fast_reply                       # skip to compose when replying
+set askcc                            # ask for CC:
+set fcc_attach                       # save attachments with the body
+unset mime_forward                   # forward attachments as part of body
+set forward_format = "Fwd: %s"       # format of subject when forwarding
+set forward_decode                   # decode when forwarding
+set attribution = "On %d, %n wrote:" # format of quoting header
+set reply_to                         # reply to Reply to: field
+set reverse_name                     # reply as whomever it was to
+set include                          # include message in replies
+set forward_quote                    # include message in forwards
+
+set from = "sofia@autonomia.digital"
+set sendmail = "/usr/local/bin/msmtp"
+set sendmail_wait = 0
+
+set sig_dashes                                                  # dashes before my sig... sweet
+
+# If enter-command is available from the UI, it is possible to see the
+# password unencrypted, which my be undesired if anybody else than you has
+# access to your session while Mutt is running. You may want to disable it for
+# this reason. As a consequence, every command that the user intends to use
+# must be bound to a key in advance, otherwise it will never be accessible.
+bind generic,alias,attach,browser,editor,index,compose,pager,pgp,postpone ':' noop
+
+# Dark Solarized theme
+# basic colors ---------------------------------------------------------
+color normal        color241        color234
+color error         color160        color234
+color tilde         color235        color234
+color message       color37         color234
+color markers       color160        color254
+color attachment    color254        color234
+color search        color61         color234
+#color status        J_black         J_status
+color status        color241        color235
+color indicator     color234        color136
+color tree          color136        color234                                    # arrow in threads
+
+# basic monocolor screen
+mono  bold          bold
+mono  underline     underline
+mono  indicator     reverse
+mono  error         bold
+
+# index ----------------------------------------------------------------
+
+#color index         color160        color234        "~D(!~p|~p)"               # deleted
+#color index         color235        color234        ~F                         # flagged
+#color index         color166        color234        ~=                         # duplicate messages
+#color index         color240        color234        "~A!~N!~T!~p!~Q!~F!~D!~P"  # the rest
+#color index         J_base          color234        "~A~N!~T!~p!~Q!~F!~D"      # the rest, new
+color index         color160        color234        "~A"                        # all messages
+color index         color166        color234        "~E"                        # expired messages
+color index         color33         color234        "~N"                        # new messages
+color index         color33         color234        "~O"                        # old messages
+color index         color61         color234        "~Q"                        # messages that have been replied to
+color index         color240        color234        "~R"                        # read messages
+color index         color33         color234        "~U"                        # unread messages
+color index         color33         color234        "~U~$"                      # unread, unreferenced messages
+color index         color241        color234        "~v"                        # messages part of a collapsed thread
+color index         color241        color234        "~P"                        # messages from me
+color index         color37         color234        "~p!~F"                     # messages to me
+color index         color37         color234        "~N~p!~F"                   # new messages to me
+color index         color37         color234        "~U~p!~F"                   # unread messages to me
+color index         color240        color234        "~R~p!~F"                   # messages to me
+color index         color160        color234        "~F"                        # flagged messages
+color index         color160        color234        "~F~p"                      # flagged messages to me
+color index         color160        color234        "~N~F"                      # new flagged messages
+color index         color160        color234        "~N~F~p"                    # new flagged messages to me
+color index         color160        color234        "~U~F~p"                    # new flagged messages to me
+color index         color235        color160        "~D"                        # deleted messages
+color index         color245        color234        "~v~(!~N)"                  # collapsed thread with no unread
+color index         color136        color234        "~v~(~N)"                   # collapsed thread with some unread
+color index         color64         color234        "~N~v~(~N)"                 # collapsed thread with unread parent
+# statusbg used to indicated flagged when foreground color shows other status
+# for collapsed thread
+color index         color160        color235        "~v~(~F)!~N"                # collapsed thread with flagged, no unread
+color index         color136        color235        "~v~(~F~N)"                 # collapsed thread with some unread & flagged
+color index         color64         color235        "~N~v~(~F~N)"               # collapsed thread with unread parent & flagged
+color index         color64         color235        "~N~v~(~F)"                 # collapsed thread with unread parent, no unread inside, but some flagged
+color index         color37         color235        "~v~(~p)"                   # collapsed thread with unread parent, no unread inside, some to me directly
+color index         color136        color160        "~v~(~D)"                   # thread with deleted (doesn't differentiate between all or partial)
+#color index         color136        color234        "~(~N)"                    # messages in threads with some unread
+#color index         color64         color234        "~S"                       # superseded messages
+#color index         color160        color234        "~T"                       # tagged messages
+#color index         color166        color160        "~="                       # duplicated messages
+
+# message headers ------------------------------------------------------
+
+#color header        color240        color234        "^"
+color hdrdefault    color240        color234
+color header        color241        color234        "^(From)"
+color header        color33         color234        "^(Subject)"
+
+# body -----------------------------------------------------------------
+
+color quoted        color33         color234
+color quoted1       color37         color234
+color quoted2       color136        color234
+color quoted3       color160        color234
+color quoted4       color166        color234
+
+color signature     color240        color234
+color bold          color235        color234
+color underline     color235        color234
+color normal        color244        color234
+#
+color body          color245        color234        "[;:][-o][)/(|]"    # emoticons
+color body          color245        color234        "[;:][)(|]"         # emoticons
+color body          color245        color234        "[*]?((N)?ACK|CU|LOL|SCNR|BRB|BTW|CWYL|\
+                                                     |FWIW|vbg|GD&R|HTH|HTHBE|IMHO|IMNSHO|\
+                                                     |IRL|RTFM|ROTFL|ROFL|YMMV)[*]?"
+color body          color245        color234        "[ ][*][^*]*[*][ ]?" # more emoticon?
+color body          color245        color234        "[ ]?[*][^*]*[*][ ]" # more emoticon?
+
+## pgp
+
+color body          color160        color234        "(BAD signature)"
+color body          color37         color234        "(Good signature)"
+color body          color234        color234        "^gpg: Good signature .*"
+color body          color241        color234        "^gpg: "
+color body          color241        color160        "^gpg: BAD signature from.*"
+mono  body          bold                            "^gpg: Good signature"
+mono  body          bold                            "^gpg: BAD signature from.*"
+
+# yes, an insance URL regex
+color body color160 color234 "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
+
+
