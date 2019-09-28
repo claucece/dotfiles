@@ -111,6 +111,10 @@ Plugin 'xolox/vim-misc'
 
 Plugin 'xolox/vim-lua-ftplugin'
 
+Plugin 'tpope/vim-eunuch'
+
+Plugin 'mattn/emmet-vim'
+
 call vundle#end()
 
 execute pathogen#infect()
@@ -137,3 +141,20 @@ let g:ctrlp_custom_ignore = {
 let g:syntastic_go_checkers = ['go', 'golint', 'errcheck']
 
 map <C-n> :NERDTreeToggle<CR>
+map <c-k> :pyf /usr/local/Cellar/clang-format/2017-06-22/share/clang/clang-format.py<cr>
+imap <c-k> <c-o>:pyf /usr/local/Cellar/clang-format/2017-06-22/share/clang/clang-format.py<cr>
+
+au Filetype go nnoremap <leader>v :vsp <cr>:exe "GoDef" <cr>
+au Filetype go nnoremap <leader>s :sp <cr>:exe "GoDef"<cr>
+au Filetype go nnoremap <leader>t :tab split <cr>:exe "GoDef"<cr>
+onoremap in( :<c-u>normal! f(vi(<cr>
+
+function! <SID>StripTrailingWhitespaces()
+    " save last search & cursor position
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    let @/=_s
+    call cursor(l, c)
+endfunction
