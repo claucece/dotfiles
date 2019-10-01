@@ -46,6 +46,8 @@ set secure
 set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
+set backspace=indent,eol,start
+
 if $TMUX == ''
     set clipboard+=unnamed
 endif
