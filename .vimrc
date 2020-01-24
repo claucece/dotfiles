@@ -35,6 +35,9 @@ set binary
 set paste
 set clipboard=unnamed
 set showmatch
+set ttymouse=sgr
+set signcolumn=yes
+
 
 set noerrorbells
 set t_vb=
@@ -80,6 +83,8 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 autocmd BufWritePre * %s/\s\+$//e
 autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
 autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+autocmd! BufEnter,BufNewFile *.go syntax on
+autocmd! BufLeave *.go syntax off
 
 augroup lexical
   autocmd!
@@ -103,17 +108,17 @@ Plugin 'tpope/vim-fugitive'
 
 Plugin 'scrooloose/nerdcommenter'
 
-Plugin 'fatih/vim-go'
+Plugin 'govim/govim'
 
 Plugin 'vim-airline/vim-airline'
 
 Plugin 'reedes/vim-lexical'
 
-Plugin 'xolox/vim-misc'
-
 Plugin 'xolox/vim-lua-ftplugin'
 
 Plugin 'tpope/vim-eunuch'
+
+Plugin 'xolox/vim-misc'
 
 Plugin 'mattn/emmet-vim'
 
@@ -130,6 +135,7 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_echo_command_info=1
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -160,3 +166,9 @@ function! <SID>StripTrailingWhitespaces()
     let @/=_s
     call cursor(l, c)
 endfunction
+
+" Suggestion: show info for completion candidates in a popup menu
+if has("patch-8.1.1904")
+  set completeopt+=popup
+  set completepopup=align:menu,border:off,highlight:Pmenu
+endif
