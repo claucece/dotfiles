@@ -3,8 +3,8 @@ set ssl_verify_host = no
 
 set imap_pass = $my_pw
 
-set folder="imaps://sofia@mail.autonomia.digital:993/"
-set spoolfile="imaps://sofia@mail.autonomia.digital:993/"
+set folder="imaps://cherenkov@mail.riseup.net:993/"
+set spoolfile="imaps://cherenkov@mail.riseup.net:993/"
 set record="+Sent"
 set postponed="+Drafts"
 
@@ -44,8 +44,8 @@ set beep_new
 set sort=threads
 set sort_aux=reverse-last-date-received
 
-set pgp_default_key = F7D1A55C
-set pgp_sign_as = F7D1A55C
+set pgp_default_key = 6F442D02
+set pgp_sign_as = 6F442D02
 set crypt_use_gpgme= yes
 set crypt_opportunistic_encrypt = yes
 set crypt_autosign= yes
@@ -96,7 +96,7 @@ set reverse_name                     # reply as whomever it was to
 set include                          # include message in replies
 set forward_quote                    # include message in forwards
 
-set from = "sofia@autonomia.digital"
+set from = "cherenkov@riseup.net"
 set sendmail = "/usr/local/bin/msmtp"
 set sendmail_wait = 0
 
