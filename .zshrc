@@ -81,7 +81,6 @@ source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
-# export CC=/usr/local/bin/gcc-9 # When I want to feel good
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -113,7 +112,7 @@ alias c='clear'
 alias o= 'open'
 alias ez='vim ~/.zshrc'
 alias ls='pwd; ls -GFh'
-alias gcc='gcc-9'
+alias python='python3'
 
 export MYVIMRC=/Users/sofiaceli/.vimrc
 export MYOTRV4=/Users/sofiaceli/repos/otrv4
@@ -157,3 +156,5 @@ function most_useless_use_of_zsh {
 eval "$(direnv hook zsh)"
 eval "$(rbenv init -)"
 alias config='/usr/bin/git --git-dir=/Users/sofiaceli/.cfg/ --work-tree=/Users/sofiaceli'
+
+. $HOME/.asdf/asdf.sh
