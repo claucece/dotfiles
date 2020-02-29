@@ -112,7 +112,6 @@ alias c='clear'
 alias o= 'open'
 alias ez='vim ~/.zshrc'
 alias ls='pwd; ls -GFh'
-alias python='python3'
 
 export MYVIMRC=/Users/sofiaceli/.vimrc
 export MYOTRV4=/Users/sofiaceli/repos/otrv4
