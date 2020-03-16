@@ -66,12 +66,14 @@ servers = (
     autoconnect = "no";
   },
   {
-    address = "internal.autonomia.digital";
-    chatnet = "CAD";
-    port = "4533";
-    use_ssl = "yes";
-    autoconnect = "yes";
-  }
+    address = "irc.dyne.org";
+    chatnet = "DYNE";
+    port = "6697";
+    use_tls = "yes";
+    tls_cert = "~/.irssi/certs/nick.pem";
+    tls_verify = "yes";
+    autoconnect = "no";
+  },
 );
 
 chatnets = {
@@ -129,13 +131,6 @@ chatnets = {
     max_msgs = "1";
     max_whois = "1";
   };
-  CAD = {
-    type = "IRC";
-    autosendcmd = "/nick cherenkov_d";
-    max_kicks = "1";
-    max_msgs = "1";
-    max_whois = "1";
-  };
   QuakeNet = {
     type = "IRC";
     max_kicks = "1";
@@ -155,6 +150,7 @@ chatnets = {
     max_msgs = "1";
     max_whois = "1";
   };
+  DYNE = { type = "IRC"; };
 };
 
 channels = (
