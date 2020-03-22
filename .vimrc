@@ -122,6 +122,8 @@ Plugin 'xolox/vim-misc'
 
 Plugin 'mattn/emmet-vim'
 
+Plugin 'vim-scripts/indentpython.vim'
+
 call vundle#end()
 
 execute pathogen#infect()
@@ -174,11 +176,3 @@ if has("patch-8.1.1904")
   set completepopup=align:menu,border:off,highlight:Pmenu
 endif
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
