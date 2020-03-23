@@ -1,0 +1,1 @@
+((Presence "cyan") (Success "lightgreen"))
