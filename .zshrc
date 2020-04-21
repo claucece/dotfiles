@@ -157,3 +157,4 @@ eval "$(rbenv init -)"
 alias config='/usr/bin/git --git-dir=/Users/sofiaceli/.cfg/ --work-tree=/Users/sofiaceli'
 
 . $HOME/.asdf/asdf.sh
+export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
