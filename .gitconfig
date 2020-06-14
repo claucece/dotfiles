@@ -1,0 +1,46 @@
+[user]
+	email = cherenkovd69@gmail.com
+	name = Sofía Celi
+	signingkey = 0x008222C3AEE7208A
+
+[alias]
+	co = checkout
+        g = grep
+	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+	lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+	la = "!git config -l | grep alias | cut -c 7-"
+	lgs = "log --graph --pretty=format:'%C(yellow)%h %Cblue%aN %Cgreen%ar%Cblue%G? %Creset%s'"
+	rc = rm -r --cached .
+	please = push --force-with-lease
+	shorty = status --short --branch
+	kill = "!f(){ git branch -D \"$1\";  git push origin --delete \"$1\"; };f"
+        hist = "log --pretty=format:'%C(yellow)[%ad]%C(reset) %C(green)[%h]%C(reset) | %C(red)%s %C(bold red){{%an}}%C(reset) %C(blue)%d%C(reset)' --graph --date=short"
+        change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
+        bl = blame
+        # via http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
+        snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+        snapshots = !git stash list --grep snapshot
+
+[push]
+	default = simple
+
+[core]
+	editor = vim
+	excludesfile = /Users/sofia/.gitignore
+
+[commit]
+	gpgsign = true
+
+[format]
+	pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
+[rerere]
+  # Remember my merges
+  # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
+  enabled = true
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+[url "ssh://git@gitlab.com/"]
+	insteadOf = https://gitlab.com/
+[url "ssh://git@bitbucket.org/"]
+	insteadOf = https://bitbucket.org/
