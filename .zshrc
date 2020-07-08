@@ -121,6 +121,9 @@ export PATH=$PATH:$GOPATH/bin
 export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 export PASSWORD_STORE_DIR=/Users/sofiaceli/repos/secrets/password-store
 export GPG_TTY=`tty`
+export LDFLAGS="-L/usr/local/opt/libffi/lib"
+export CPPFLAGS="-I/usr/local/opt/libffi/include"
+export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 
