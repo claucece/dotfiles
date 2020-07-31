@@ -110,6 +110,8 @@ Plugin 'scrooloose/nerdcommenter'
 
 Plugin 'govim/govim'
 
+Plugin 'rust-lang/rust.vim'
+
 Plugin 'vim-airline/vim-airline'
 
 Plugin 'reedes/vim-lexical'
@@ -150,6 +152,7 @@ let g:ctrlp_custom_ignore = {
   \ }
 
 let g:syntastic_go_checkers = ['go', 'golint', 'errcheck']
+let g:rustfmt_autosave = 1
 
 map <C-n> :NERDTreeToggle<CR>
 map <c-k> :pyf /usr/local/Cellar/clang-format/2017-06-22/share/clang/clang-format.py<cr>
