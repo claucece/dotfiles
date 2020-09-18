@@ -21,6 +21,9 @@
         # via http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
         snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
         snapshots = !git stash list --grep snapshot
+	changeremotehost = !sh -c \"git remote -v | grep '$1.*fetch' | sed s/..fetch.// | sed s/$1/$2/ | xargs git remote set-url\"
+	setpromail = "config user.email 'sceli@cloudflare.com'"
+	gopro = !sh -c \"git changeremotehost github.com github_pro && git changeremotehost bitbucket.com bitbucket_pro && git setpromail\"
 
 [push]
 	default = simple
