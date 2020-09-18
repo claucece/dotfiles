@@ -1,3 +1,3 @@
 # Dotfiles
 
-My beautiful dotfiles ;)
+My beautiful dotfiles with lots of ideas ;)
