@@ -28,6 +28,18 @@
 	unassume = update-index --no-assume-unchanged
 	assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
 	squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
+	# Useful when you have to update your last commit
+	# with staged files without editing the commit message.
+	oops = commit --amend --no-edit
+	# Ensure that force-pushing won't lose someone else's work (only mine).
+	push-with-lease = push --force-with-lease
+	review-local = "!git lg @{push}.."
+	# Edit last commit message
+	reword = commit --amend
+	# Undo last commit but keep changed files in stage
+	uncommit = reset --soft HEAD~1
+	# Remove file(s) from Git but not from disk
+	untrack = rm --cache --
 
 [push]
 	default = simple
