@@ -24,6 +24,10 @@
 	changeremotehost = !sh -c \"git remote -v | grep '$1.*fetch' | sed s/..fetch.// | sed s/$1/$2/ | xargs git remote set-url\"
 	setpromail = "config user.email 'sceli@cloudflare.com'"
 	gopro = !sh -c \"git changeremotehost github.com github_pro && git changeremotehost bitbucket.com bitbucket_pro && git setpromail\"
+	assume   = update-index --assume-unchanged
+	unassume = update-index --no-assume-unchanged
+	assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
+	squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
 
 [push]
 	default = simple
@@ -38,9 +42,9 @@
 [format]
 	pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
 [rerere]
-  # Remember my merges
-  # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
-  enabled = true
+	# Remember my merges
+	# http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
+ 	enabled = true
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
 [url "ssh://git@gitlab.com/"]
