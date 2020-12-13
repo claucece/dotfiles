@@ -126,6 +126,8 @@ Plugin 'mattn/emmet-vim'
 
 Plugin 'vim-scripts/indentpython.vim'
 
+Plugin 'pangloss/vim-javascript'
+
 call vundle#end()
 
 execute pathogen#infect()
