@@ -67,6 +67,7 @@ if has("gui_macvim")
 let mapleader = "-"
 let maplocalleader = "\\"
 let g:lexical#spell = 1
+let g:tex_flavor='latex'
 
 vnoremap <leader>u U
 nnoremap <leader>ev :vs $MYVIMRC
@@ -127,6 +128,8 @@ Plugin 'mattn/emmet-vim'
 Plugin 'vim-scripts/indentpython.vim'
 
 Plugin 'pangloss/vim-javascript'
+
+Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 
 call vundle#end()
 
