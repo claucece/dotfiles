@@ -1,0 +1,65 @@
+[user]
+	email = cherenkovd69@gmail.com
+	name = Sofía Celi
+	signingkey = 2E1619EA98F1FC58
+
+[alias]
+	co = checkout
+        g = grep
+	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+	lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+	la = "!git config -l | grep alias | cut -c 7-"
+	lgs = "log --graph --pretty=format:'%C(yellow)%h %Cblue%aN %Cgreen%ar%Cblue%G? %Creset%s'"
+	rc = rm -r --cached .
+	please = push --force-with-lease
+	shorty = status --short --branch
+	kill = "!f(){ git branch -D \"$1\";  git push origin --delete \"$1\"; };f"
+        hist = "log --pretty=format:'%C(yellow)[%ad]%C(reset) %C(green)[%h]%C(reset) | %C(red)%s %C(bold red){{%an}}%C(reset) %C(blue)%d%C(reset)' --graph --date=short"
+        change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
+        bl = blame
+        # via http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
+        snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+        snapshots = !git stash list --grep snapshot
+	changeremotehost = !sh -c \"git remote -v | grep '$1.*fetch' | sed s/..fetch.// | sed s/$1/$2/ | xargs git remote set-url\"
+	setpromail = "config user.email 'sceli@cloudflare.com'"
+	gopro = !sh -c \"git changeremotehost github.com github_pro && git changeremotehost bitbucket.com bitbucket_pro && git setpromail\"
+	assume   = update-index --assume-unchanged
+	unassume = update-index --no-assume-unchanged
+	assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
+	squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
+	# Useful when you have to update your last commit
+	# with staged files without editing the commit message.
+	oops = commit --amend --no-edit
+	# Ensure that force-pushing won't lose someone else's work (only mine).
+	push-with-lease = push --force-with-lease
+	review-local = "!git lg @{push}.."
+	# Edit last commit message
+	reword = commit --amend
+	# Undo last commit but keep changed files in stage
+	uncommit = reset --soft HEAD~1
+	# Remove file(s) from Git but not from disk
+	untrack = rm --cache --
+
+[push]
+	default = simple
+
+[core]
+	editor = vim
+	excludesfile = /Users/sofia/.gitignore
+
+[commit]
+	gpgsign = true
+
+[format]
+	pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
+[rerere]
+	# Remember my merges
+	# http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
+ 	enabled = true
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+[url "ssh://git@gitlab.com/"]
+	insteadOf = https://gitlab.com/
+[url "ssh://git@bitbucket.org/"]
+	insteadOf = https://bitbucket.org/
